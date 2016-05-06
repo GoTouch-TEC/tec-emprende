@@ -5,6 +5,12 @@
     "sass",
     "watch"
   ],
+  "proxies": [
+    {
+      "path": "/api/competition",
+      "proxyUrl": "http://172.17.1.113:8443/app/competitions"
+    }
+  ],
   "watchPatterns": [
     "www/**/*",
     "!www/lib/**/*"

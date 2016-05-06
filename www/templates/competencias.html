@@ -2,39 +2,30 @@
     <ion-content padding="true" class="has-header">
         <form class="list">
             <label class="item item-select" name="state">
-                <span class="input-label">Estado</span>
+                <span class="input-label">Filtrar por</span>
                 <select>
-                    <option>En curso</option>
-                    <option>Finalizado</option>
-                    <option>Próximo</option>
+                    <option>Competencias en curso</option>
+                    <option>Competencias finalizadas</option>
+                    <option>Próximas Competencias</option>
                 </select>
             </label>
         </form>
-        <div class="list card">
-            <div class="item item-body">
-                <div style="margin: 0px; line-height: 250px; border: 1px solid rgb(238, 238, 238); border-radius: 3px; text-align: center; background-color: rgb(255, 255, 255);">
-                    <i class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i>
-                </div>
-                <h1 id="competencias-heading1" style="color:#000000;">Competencia</h1>
-                <div id="competencias-markdown1" style="color:#000000;">
-                    <p>Some friendly
-                        <strong>markdown</strong>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="list card">
-            <div class="item item-body">
-                <div style="margin: 0px; line-height: 250px; border: 1px solid rgb(238, 238, 238); border-radius: 3px; text-align: center; background-color: rgb(255, 255, 255);">
-                    <i class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i>
-                </div>
-                <h1 id="competencias-heading2" style="color:#000000;">Competencia</h1>
-                <div id="competencias-markdown2" style="color:#000000;">
-                    <p>Some friendly
-                        <strong>markdown</strong>
-                    </p>
+        <a ui-sref="projects({ competitionId: competition._id })" ng-repeat="competition in competitions" style="text-decoration: none;">
+            <div class="list card te-card">
+                <div class="item item-body">
+                    <div style="margin: 0px; line-height: 250px; border: 1px solid rgb(238, 238, 238); border-radius: 3px; text-align: center; background-color: rgb(255, 255, 255);">
+                        <img class="icon full-image" ng-src="{{ competition.thumbnail }}" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;">
+                    </div>
+                    <div class="te-card-information">
+                        <h1 id="competencias-heading1">{{ competition.name }}</h1>
+                        <div id="competencias-markdown1">
+                            <p>
+                                {{ competition.description }}
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </a>
     </ion-content>
 </ion-view>

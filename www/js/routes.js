@@ -10,32 +10,34 @@ angular.module('app.routes', [])
     
   
 
-      .state('competencias', {
+  .state('competitions', {
     url: '/competitions',
     templateUrl: 'templates/competencias.html',
     controller: 'competenciasCtrl'
   })
 
-  .state('proyectos', {
-    url: '/projects',
+  .state('projects', {
+    url: '/projects/:competitionId',
     templateUrl: 'templates/proyectos.html',
     controller: 'proyectosCtrl'
   })
 
-  .state('votar', {
+  .state('vote', {
     url: '/vote',
     templateUrl: 'templates/votar.html',
     controller: 'votarCtrl'
   })
 
-  .state('proyecto', {
-    url: '/project',
+  .state('project', {
+    url: '/project/:projectId',
     templateUrl: 'templates/proyecto.html',
     controller: 'proyectoCtrl'
   })
 
-$urlRouterProvider.otherwise('/competitions')
+  .state('sync', {
+    url: '/sync',
+    templateUrl: 'templates/sync.html'
+  });
 
-  
-
+  $urlRouterProvider.otherwise('/sync')
 });
