@@ -1,16 +1,17 @@
 <ion-view title="Proyecto" id="page5" style="background-color:#F2F2F2;">
-    <ion-content padding="true" class="has-header">
-        <div style="margin: 0px; line-height: 250px; border: 1px solid rgb(238, 238, 238); border-radius: 3px; text-align: center; background-color: rgb(255, 255, 255);">
-            <i class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i>
+    <ion-content class="has-header">
+        <div class="project_header_container">
+            <img class="icon" ng-src="{{ project.frontImage }}" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle; max-width: 100%">
+            <img ng-src="{{ project.thumbnail }}" style="width: 25%; max-with: 250px; bottom: -10px; left: 10px; position: absolute;border-radius: 4px;background: #FFF;box-shadow: 1px 1px 1px #CCC;">
+            <h1 class="project_header">{{ project.name }}</h1>
         </div>
-        <h1 id="proyecto-heading8" style="color:#000000;">Proyecto "xxx"</h1>
-        <div id="proyecto-markdown8" style="color:#000000;">
-            <p>Some friendly
-                <strong>markdown</strong>
-            </p>
-        </div>
-        <div style="margin: 0px; line-height: 250px; border: 1px solid rgb(238, 238, 238); border-radius: 3px; text-align: center; background-color: rgb(255, 255, 255);">
-            <i class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i>
+        <div style="padding: 10px;">
+            <div class="project_paragraph">
+                <p>{{ project.description }}</p>
+            </div>
+<!--             <div style="margin: 0px; line-height: 250px; border: 1px solid rgb(238, 238, 238); border-radius: 3px; text-align: center; background-color: rgb(255, 255, 255);">
+                <i class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i>
+            </div> -->
         </div>
     </ion-content>
 </ion-view>

@@ -1,24 +1,24 @@
 <ion-view title="Proyectos" id="page3" style="background-color:#F2F2F2;">
     <ion-content padding="true" class="has-header">
+        <a ui-sref="vote({ competitionId: competition._id })" id="proyectos-button2" style="border-radius:7px 7px 7px 7px;" class="button button-energized  icon-left ion-ios-checkmark">Votar</a>
         <h1 class="project-title" id="proyectos-heading7">{{ competition.name }}</h1>
         <div id="proyectos-markdown7">
             <p>{{ competition.description }}</p>
         </div>
-        <a ui-sref="votar" id="proyectos-button2" style="border-radius:7px 7px 7px 7px;" class="button button-energized  icon-left ion-ios-checkmark">Votar</a>
         <form class="list">
             <label class="item item-select" name="project_filtrer">
                 <span class="input-label">Categoría</span>
-                <select>
-                    <option>Todas</option>
-                    <option>Biotecnología</option>
-                    <option>Medio Ambiente</option>
-                    <option>Salud</option>
+                <select ng-model="search.tag">
+                    <option value="">Todas</option>
+                    <option value="5728a2103a57ce227e0171cc">Nuevas Tecnologías</option>
+                    <option value="5728a2073a57ce227e0171cb">Otros Productos y Servicios Innovadores</option>
+                    <option value="5728a1f33a57ce227e0171ca">Productos y Servicios Eco-amigables</option>
                 </select>
             </label>
         </form>
         <ion-list>
             <div class="projects">
-                <a ui-sref="project({ projectId: project._id })" ng-repeat="project in projects" style="text-decoration: none;">
+                <a ui-sref="project({ projectId: project._id })" ng-repeat="project in projects | filter: search" style="text-decoration: none;">
                     <div class="list card te-card project-card">
                         <div class="item item-body">
                             <div style="margin: 0px; line-height: 250px; border: 1px solid rgb(238, 238, 238); border-radius: 3px; text-align: center; background-color: rgb(255, 255, 255);">

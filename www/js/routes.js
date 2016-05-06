@@ -23,7 +23,7 @@ angular.module('app.routes', [])
   })
 
   .state('vote', {
-    url: '/vote',
+    url: '/vote/:competitionId',
     templateUrl: 'templates/votar.html',
     controller: 'votarCtrl'
   })

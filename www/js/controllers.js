@@ -1,6 +1,7 @@
 angular.module('app.controllers', [])
   
 .controller('competenciasCtrl', function($scope, DataService, $state, $ionicNavBarDelegate) {
+	$ionicNavBarDelegate.showBackButton(false);
 	if (!DataService.loaded) {
 		console.log('DEBUG: data is not available');
 		$state.go('sync');
@@ -9,7 +10,6 @@ angular.module('app.controllers', [])
 		if (typeof newVal !== 'undefined' && DataService.loaded) {
 			console.log('DEBUG: data is available');
 			$scope.competitions = DataService.getData({ model: 'competition' });
-			$ionicNavBarDelegate.showBackButton(false);
 			console.log('DEBUG: Competitions data is:');
 			console.log($scope.competitions);
 		}
@@ -21,6 +21,7 @@ angular.module('app.controllers', [])
 		console.log('DEBUG: data is not available');
 		$state.go('sync');
 	}
+	$scope.search = "";
 	$ionicNavBarDelegate.showBackButton(true);
 	$scope.projects = [];
 	$scope.noMoreItemsAvailable = false;
@@ -42,12 +43,51 @@ angular.module('app.controllers', [])
 			$scope.$broadcast('scroll.infiniteScrollComplete');
 		}
 	};
+	// $scope.goToVote = function() {
+	// 	console.log('clicked');
+	// 	$state.go('vote', { competitionId: competition._id });
+	// };
 })
    
-.controller('votarCtrl', function($scope) {
-
+.controller('votarCtrl', function($scope, VoteService, DataService, $ionicPopup, $stateParams, $state, $ionicNavBarDelegate) {
+	if (!DataService.loaded) {
+		console.log('DEBUG: data is not available');
+		$state.go('sync');
+	}
+	$scope.selectedProject = null;
+	$ionicNavBarDelegate.showBackButton(true);
+	$scope.$watch(function () { return DataService.loaded }, function (newVal, oldVal) {
+		if (typeof newVal !== 'undefined' && DataService.loaded) {
+			$scope.competition = DataService.getData({ model: 'competition', id: $stateParams.competitionId });
+		}
+	});
+	$scope.selectProject = function(index) {
+		$scope.selectedProject = $scope.competition.projects[index];
+	};
+	$scope.vote = function() {
+		VoteService.vote($scope.selectedProject._id);
+        $ionicPopup.alert({
+          title: 'Voto Realizado',
+          template: 'Su voto ha sido registrado correctamente.'
+        })
+        .then(function(result) {
+          $scope.selectedProject = null;
+        });
+	};
 })
    
-.controller('proyectoCtrl', function($scope) {
-
+.controller('proyectoCtrl', function($scope, $stateParams, DataService, $state, $ionicNavBarDelegate) {
+	$ionicNavBarDelegate.showBackButton(true);
+	if (!DataService.loaded) {
+		console.log('DEBUG: data is not available');
+		$state.go('sync');
+	}
+	$scope.$watch(function () { return DataService.loaded }, function (newVal, oldVal) {
+		if (typeof newVal !== 'undefined' && DataService.loaded) {
+			console.log('DEBUG: data is available');
+			$scope.project = DataService.getData({ model: 'project', id: $stateParams.projectId });
+			console.log('DEBUG: Competitions data is:');
+			console.log($scope.project);
+		}
+	});
 });

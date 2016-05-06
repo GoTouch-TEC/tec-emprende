@@ -19,7 +19,7 @@ angular.module('app.services', ['ngResource'])
    */
   this.setData = function(json, cb) {
     console.log('DEBUG: data changed');
-    window.localStorage.setItem('app_data', JSON.stringify(json));
+    localStorage.setItem('app_data', JSON.stringify(json));
     data = json;
     this.loaded = true;
     if (typeof cb === "function") {
@@ -74,11 +74,14 @@ angular.module('app.services', ['ngResource'])
       case 'project':
         if (typeof id !== "undefined") {
           // User wants one project data
-          for (var i = filteredData.length - 1; i >= 0; i--) {
-            if (filteredData[i]._id === id) {
-              return filteredData[i];
+          for (var competitionIndex = filteredData.length - 1; competitionIndex >= 0; competitionIndex--) {
+            var actualCompetition = filteredData[competitionIndex]
+            for (var projectIndex = actualCompetition.projects.length - 1; projectIndex >= 0; projectIndex--) {
+              if (actualCompetition.projects[projectIndex]._id === id) {
+                return actualCompetition.projects[projectIndex];
+              }
             }
-          };
+          }
           console.error('Competition with the specified id [' + id + '] not found');
           return {};
         } else {
@@ -90,4 +93,67 @@ angular.module('app.services', ['ngResource'])
         break;
     }
   };
+}])
+
+.service('VoteService', ['$http', 'ionicToast', function($http, ionicToast){
+  var votes = localStorage.getItem('votes');
+  if (votes === null) {
+    votes = [];
+    localStorage.setItem('votes', '[]');
+  } else {
+    votes = JSON.parse(votes);
+  }
+  this.vote = function(projectId) {
+    votes.push({
+      token: makeId(),
+      projectId: projectId,
+      date: new Date()
+    });
+    localStorage.setItem('votes', JSON.stringify(votes));
+    this.tryToSendVotes();
+    return true;
+  }
+
+  var sendVote = function(voteObject) {
+    $http.post('http://172.17.1.113:8443/app/vote', voteObject).then(function(result){
+      for (var i = votes.length - 1; i >= 0; i--) {
+        if (votes[i].token = voteObject.token) {
+          votes.splice(i, 1);
+          localStorage.setItem('votes', JSON.stringify(votes));
+        }
+      }
+      ionicToast.show('El voto fue enviado correctamente.', 'bottom', false, 3000);
+    },function(err){
+      for (var i = votes.length - 1; i >= 0; i--) {
+        if (votes[i].token = voteObject.token) {
+          votes[i].sending = false;
+        }
+      }
+      ionicToast.show('Error while sending the vote.', 'bottom', false, 6000);
+      console.error(err);
+    });
+  };
+
+  var makeId = function() {
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for( var i=0; i < 16; i++ ) {
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+
+    return text;
+  };
+
+  this.tryToSendVotes = function() {
+    if(navigator.connection.type != Connection.NONE) {
+      for (var i = votes.length - 1; i >= 0; i--) {
+        if (!votes[i].sending) {
+          votes[i].sending = true;
+          sendVote(votes[i]);
+        }
+      };
+    }
+  };
+
 }]);

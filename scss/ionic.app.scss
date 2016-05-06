@@ -61,6 +61,38 @@ $dark: #333 !default;
 	float: right;
 	margin-left: 10px;
 }
+.vote-card {
+	&.selected {
+		background: #0F5B50;
+		h1 {
+			color: #FFF;
+		}
+	}
+	width: 100%;
+	display: block;
+	padding: 5px 0;
+	border-bottom: 1px solid #CCC;
+	img {
+		display: inline-block;
+		height: 100px;
+		width: 100px;
+		margin-right: 10px;
+		vertical-align: middle
+	}
+	h1 {
+		display: inline-block;
+		font-size: 1.3em;
+		width: calc( 100% - 120px );
+		vertical-align: middle
+	}
+}
+.vote-button {
+	position: fixed;
+	bottom: 10px;
+	left: 5%;
+	width: 90%;
+	display: block;
+}
 
 @media (min-width: 768px) {
 	.projects {
@@ -72,4 +104,36 @@ $dark: #333 !default;
 }
 .project-title{
 	color:#0F5B50;
+}
+.project_header {
+	color: #FFF;
+	margin: 0;
+	padding: 0 0 0 30%;
+	text-shadow: 2px 2px 2px #000;
+	position: absolute;
+	bottom: 0;
+	text-align: left;
+	font-size: 1.5em;
+}
+.project_paragraph {
+	color: #333;
+	padding: 10px;
+}
+.project_header_container {
+	margin: 0px;
+	border-radius: 3px;
+	text-align: center;
+	background: url('../img/nofrontimage.jpg') center center no-repeat;
+	position: relative;
+	min-height: 140px;
+}
+.sync {
+	text-align: center;
+	color: #666;
+	ion-content {
+		padding-top: 25%;
+		h3 {
+			color: #666;
+		}
+	}
 }
