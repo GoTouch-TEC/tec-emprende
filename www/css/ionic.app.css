@@ -9771,6 +9771,8 @@ a.button {
   display: block;
   padding: 5px 0;
   border-bottom: 1px solid #CCC; }
+  .vote-card:last-of-type {
+    margin-bottom: 70px; }
   .vote-card.selected {
     background: #0F5B50; }
     .vote-card.selected h1 {

@@ -1,7 +1,13 @@
 <ion-view title="Proyectos" id="page3" style="background-color:#F2F2F2;">
     <ion-content padding="true" class="has-header">
-        <a ui-sref="vote({ competitionId: competition._id })" id="proyectos-button2" style="border-radius:7px 7px 7px 7px;" class="button button-energized  icon-left ion-ios-checkmark">Votar</a>
-        <h1 class="project-title" id="proyectos-heading7">{{ competition.name }}</h1>
+        <a ng-if="canVote" ui-sref="vote({ competitionId: competition._id })" id="proyectos-button2" style="border-radius:7px 7px 7px 7px;" class="button button-energized  icon-left ion-ios-checkmark">Votar</a>
+        <h1 class="project-title"
+            on-swipe-left="swipeEasterEgg('left')"
+            on-swipe-right="swipeEasterEgg('right')"
+            on-swipe-down="swipeEasterEgg('down')"
+            on-swipe-up="swipeEasterEgg('up')"
+            on-hold="swipeEasterEgg('hold')"
+            on-double-tap="swipeEasterEgg('double')">{{ competition.name }}</h1>
         <div id="proyectos-markdown7">
             <p>{{ competition.description }}</p>
         </div>

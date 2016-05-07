@@ -62,6 +62,9 @@ $dark: #333 !default;
 	margin-left: 10px;
 }
 .vote-card {
+	&:last-of-type {
+		margin-bottom: 70px;
+	}
 	&.selected {
 		background: #0F5B50;
 		h1 {

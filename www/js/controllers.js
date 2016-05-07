@@ -43,6 +43,19 @@ angular.module('app.controllers', [])
 			$scope.$broadcast('scroll.infiniteScrollComplete');
 		}
 	};
+	$scope.canVote = false;
+	var password = ['left', 'left', 'right', 'double', 'hold', 'left'];
+	var easterIndex = 0;
+	$scope.swipeEasterEgg = function(direction) {
+		if (!$scope.canVote && direction === password[easterIndex]){
+			easterIndex ++;
+			if (easterIndex === password.length) {
+				$scope.canVote = true;
+			}
+		} else {
+			easterIndex = 0;
+		}
+	};
 	// $scope.goToVote = function() {
 	// 	console.log('clicked');
 	// 	$state.go('vote', { competitionId: competition._id });
