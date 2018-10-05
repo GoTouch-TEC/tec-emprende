@@ -5,7 +5,7 @@ angular.module('app.services', ['ngResource'])
   this.loaded = false;
 
   this.getDataFromServer = function() {
-    return $resource('http://172.17.1.113:8443/app/competitions', {
+    return $resource('http://172.19.127.88:8443/app/competitions', {
       competitionId: '@_id'
     }, {
       update: {
@@ -115,7 +115,7 @@ angular.module('app.services', ['ngResource'])
   }
 
   var sendVote = function(voteObject) {
-    $http.post('http://172.17.1.113:8443/app/vote', voteObject).then(function(result){
+    $http.post('http://172.19.127.88:8443/app/vote', voteObject).then(function(result){
       for (var i = votes.length - 1; i >= 0; i--) {
         if (votes[i].token = voteObject.token) {
           votes.splice(i, 1);
